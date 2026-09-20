@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoltCalc — EV Cost & Charging Calculator</title>
+  <meta name="description" content="Compare gas vs EV costs like-for-like, estimate charge times and charging costs. Free EV calculator." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-glow bg-glow--a"></div>
+  <div class="bg-glow bg-glow--b"></div>
+  <div class="bg-glow bg-glow--c"></div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="#" class="brand">
+        <span class="brand-mark" aria-hidden="true">⚡</span>
+        <span class="brand-name">Volt<span class="brand-accent">Calc</span></span>
+      </a>
+      <nav class="brand-pillars">
+        <span>Lower Costs</span>
+        <span>·</span>
+        <span>Greener Miles</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <p class="eyebrow">Electric Vehicle Calculator</p>
+      <h1>See the real price of<br /><span class="text-accent">going electric.</span></h1>
+      <p class="lede">
+        Compare fuel costs like-for-like, estimate how long your charge takes,
+        and track what it costs to get you to your goal charge — all in one place.
+      </p>
+      <div class="hero-actions">
+        <a href="#compare" class="btn btn-primary">Compare gas vs EV</a>
+        <a href="#charge" class="btn btn-ghost">Estimate charge time</a>
+      </div>
+    </section>
+
+    <!-- COMPARE: GAS vs EV -->
+    <section id="compare" class="card compare-card">
+      <div class="card-head">
+        <h2>1 · Gas vs EV</h2>
+        <p class="card-sub">Like-for-like cost & emissions over the same distance</p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="field">
+          <label>Vehicle distance
+            <span class="field-unit">miles</span>
+          </label>
+          <input id="compare-distance" type="number" min="1" step="1" value="300" />
+        </div>
+        <div class="field">
+          <label>Gas car fuel economy
+            <span class="field-unit">mpg</span>
+          </label>
+          <input id="compare-mpg" type="number" min="1" step="1" value="25" />
+        </div>
+        <div class="field">
+          <label>Gas price
+            <span class="field-unit">$ / gallon</span>
+          </label>
+          <input id="compare-gas-price" type="number" min="0" step="0.01" value="3.50" />
+        </div>
+        <div class="field">
+          <label>EV efficiency
+            <span class="field-unit">miles / kWh</span>
+          </label>
+          <input id="compare-eff" type="number" min="1" step="0.1" value="4.0" />
+        </div>
+        <div class="field">
+          <label>Electricity price
+            <span class="field-unit">$ / kWh</span>
+          </label>
+          <input id="compare-elec-price" type="number" min="0" step="0.01" value="0.16" />
+        </div>
+        <div class="field">
+          <label>EV grid emissions
+            <span class="field-unit">kg CO₂ / kWh</span>
+          </label>
+          <input id="compare-grid-co2" type="number" min="0" step="0.01" value="0.40" />
+        </div>
+      </div>
+
+      <div class="results results--compare">
+        <div class="result-row">
+          <div class="result-label">
+            <span>Cost to drive <b id="res-dist">300</b> miles</span>
+            <span class="result-note">same trip, both cars</span>
+          </div>
+          <div class="result-values">
+            <div class="result-block">
+              <span class="result-tag result-tag--gas">Gas</span>
+              <span class="result-big result-big--gas">$<span id="res-gas-cost">0</span></span>
+              <span id="res-gas-detail" class="result-detail"></span>
+            </div>
+            <div class="result-block result-block--win">
+              <span class="result-tag result-tag--ev">EV</span>
+              <span class="result-big result-big--ev">$<span id="res-ev-cost">0</span></span>
+              <span id="res-ev-detail" class="result-detail"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-row">
+          <div class="result-label">
+            <span>Emissions to drive <b id="res-dist2">300</b> miles</span>
+            <span class="result-note">same trip, both cars</span>
+          </div>
+          <div class="result-values">
+            <div class="result-block">
+              <span class="result-tag result-tag--gas">Gas</span>
+              <span class="result-big result-big--gas"><span id="res-gas-co2">0</span> kg</span>
+              <span id="res-gas-co2-detail" class="result-detail"></span>
+            </div>
+            <div class="result-block result-block--win">
+              <span class="result-tag result-tag--ev">EV</span>
+              <span class="result-big result-big--ev"><span id="res-ev-co2">0</span> kg</span>
+              <span id="res-ev-co2-detail" class="result-detail"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="saving">
+          <div class="saving-emoji">🌱</div>
+          <div class="saving-text">
+            <span id="saving-headline">Going electric saves you</span>
+            <span class="saving-amount"><span id="saving-amount">$0</span> <span id="saving-pct">0%</span></span>
+          </div>
+          <span id="saving-co2" class="saving-co2"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHARGE TIME + COST (SHARED ELECTRICITY PRICE) -->
+    <section id="charge" class="card charge-card">
+      <div class="card-head">
+        <h2>2 · Charge time &amp; cost</h2>
+        <p class="card-sub">Battery size, charge level, speed &amp; electricity price</p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="field">
+          <label>Battery capacity
+            <span class="field-unit">kWh</span>
+          </label>
+          <input id="cap" type="number" min="1" step="1" value="75" />
+        </div>
+        <div class="field">
+          <label>Current charge
+            <span class="field-unit">%</span>
+          </label>
+          <input id="from" type="number" min="0" max="100" step="1" value="20" />
+        </div>
+        <div class="field">
+          <label>Goal charge
+            <span class="field-unit">%</span>
+          </label>
+          <input id="to" type="number" min="0" max="100" step="1" value="80" />
+        </div>
+        <div class="field">
+          <label>Charger power
+            <span class="field-unit">kW</span>
+          </label>
+          <input id="power" type="number" min="0.1" step="0.5" value="7.2" />
+        </div>
+        <div class="field">
+          <label>Energy to add
+            <span class="field-unit">kWh</span>
+          </label>
+          <div class="field-output" id="out-energy">—</div>
+        </div>
+        <div class="field">
+          <label>Electricity price
+            <span class="field-unit">$ / kWh</span>
+          </label>
+          <input id="elec" type="number" min="0" step="0.01" value="0.16" />
+        </div>
+      </div>
+
+      <div class="charge-bar-wrap">
+        <div class="charge-bar-track">
+          <div class="charge-bar-fill" id="charge-fill"></div>
+          <div class="charge-markers">
+            <span class="charge-mark" id="mark-from"></span>
+            <span class="charge-mark" id="mark-to"></span>
+          </div>
+        </div>
+        <div class="charge-bar-legend">
+          <span>0%</span>
+          <span class="charge-bar-range" id="bar-range"></span>
+          <span>100%</span>
+        </div>
+      </div>
+
+      <div class="results">
+        <div class="result-row">
+          <div class="result-label">
+            <span>Time to charge</span>
+            <span class="result-note" id="charge-sub">from 20% → 80%</span>
+          </div>
+          <div class="result-values">
+            <div class="result-block result-block--win">
+              <span class="result-tag result-tag--ev">Charge time</span>
+              <span class="result-big result-big--ev" id="res-time">0h</span>
+              <span id="res-time-detail" class="result-detail"></span>
+            </div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">
+            <span>Charging cost at</span>
+            <span class="result-note">$<span id="charge-price-note">0.16</span> / kWh</span>
+          </div>
+          <div class="result-values">
+            <div class="result-block result-block--win">
+              <span class="result-tag result-tag--ev">Total cost</span>
+              <span class="result-big result-big--ev">$<span id="res-cost">0</span></span>
+              <span id="res-cost-detail" class="result-detail"></span>
+            </div>
+          </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>Built with vanilla HTML, CSS &amp; JS · Figures are estimates — real results vary by driving, grid &amp; climate.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
