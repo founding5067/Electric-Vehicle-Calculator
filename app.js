@@ -109,19 +109,6 @@ function updateCharge() {
   $("res-time-detail").textContent = `${energyKwh.toFixed(1)} kWh ÷ ${power} kW`;
   $("res-cost").textContent = moneyShort(cost);
   $("res-cost-detail").textContent = `${energyKwh.toFixed(1)} kWh × $${elecPrice.toFixed(2)}`;
-
-  // Charge bar visuals (fill = current level, dashed range = the delta)
-  const full = Math.max(fromClamp, toClamp);
-  const fillPct = Math.min(100, full);
-  const startPct = (fromClamp / 100) * 100;
-  const endPct = (toClamp / 100) * 100;
-
-  $("charge-fill").style.width = fillPct + "%";
-  $("mark-from").style.left = startPct + "%";
-  $("mark-to").style.left = endPct + "%";
-  const rangeWidth = Math.max(2, endPct - startPct);
-  $("bar-range").style.left = startPct + "%";
-  $("bar-range").style.width = rangeWidth + "%";
 }
 
 /* ---------- Wire up inputs ---------- */
