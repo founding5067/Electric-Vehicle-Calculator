@@ -383,6 +383,17 @@ input[type="number"]:focus { box-shadow: none; }
   font-size: 13px;
 }
 
+.footer-github {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-top: 8px;
+  color: var(--text-faint);
+  transition: color 0.2s ease;
+}
+.footer-github:hover {
+  color: var(--text-strong);
+}
+
 /* ---------- Utility number animation ---------- */
 @keyframes countUp { from { opacity: 0; } to { opacity: 1; } }
 .result-big, .saving-amount, .result-detail { animation: countUp 0.35s ease; }
