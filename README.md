@@ -40,3 +40,9 @@ ev_co2   = ev_kwh × grid_co2_factor  (default 0.40 kg/kWh, US grid avg)
 ```bash
 npx serve .
 ```
+
+## AI Use
+
+Built with a local model — ornith-ai/Ornith-1.5-9B-GGUF:Q8_0 — rather than a hosted API. Running it locally meant no API keys or external dependencies to manage.
+
+This was a deliberate exercise in getting comfortable with local AI. It let me learn what a model like this can and cannot do, without leaning on frontier services.
