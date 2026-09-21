@@ -1,4 +1,4 @@
-# ⚡ VoltCalc — EV Cost & Charging Calculator
+# EV Cost & Charging Calculator
 
 A sleek, eco-inspired calculator that helps people see the real price of going electric.
 
@@ -37,31 +37,6 @@ ev_co2   = ev_kwh × grid_co2_factor  (default 0.40 kg/kWh, US grid avg)
 
 ## Run it
 
-No build step, no dependencies — just open the folder.
-
-- **Fastest:** open `index.html` in your browser (double-click it).
-- **Or serve it** (recommended, avoids any file:// quirks):
-
 ```bash
 npx serve .
-# then visit http://localhost:3000
 ```
-
-## Host it free
-
-It's static HTML/CSS/JS, so any static host works:
-
-- **GitHub Pages** — push to a repo, enable Pages.
-- **Netlify / Vercel** — drag the folder onto their drop zone.
-
-## Files
-
-| File         | Purpose                          |
-|--------------|----------------------------------|
-| `index.html` | Markup & layout                  |
-| `styles.css` | Eco/sleek theme (glassmorphism)  |
-| `app.js`     | Calculation logic                |
-
-## Tweak the defaults
-
-All starting values are plain `<input>` fields in `index.html` — change them to shift the demo baseline (e.g., your own car's efficiency, local gas/electricity prices).
